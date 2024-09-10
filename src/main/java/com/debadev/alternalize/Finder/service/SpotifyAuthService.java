@@ -17,11 +17,30 @@ import se.michaelthelin.spotify.requests.authorization.client_credentials.Client
 @Service
 public class SpotifyAuthService {
 	
-	Dotenv dotenv = Dotenv.load();
-	String clientId = dotenv.get("SPOTIFY_CLIENT_ID");
-	String clientSecret = dotenv.get("SPOTIFY_CLIENT_SECRET");
+	private final String clientId;
+	private final String clientSecret;
+	
+	
+		
+	public SpotifyAuthService(String clientId, String clientSecret, SpotifyApi spotifyApi) {
+		super();
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+		this.spotifyApi = spotifyApi;
+	}
+	
+	
 
-    private SpotifyApi spotifyApi;
+	public SpotifyAuthService() {
+		super();
+		this.clientId = System.getenv("SPOTIFY_CLIENT_ID");
+		this.clientSecret = System.getenv("SPOTIFY_CLIENT_SECRET");
+
+	}
+
+
+
+	private SpotifyApi spotifyApi;
     
     @PostConstruct
     public void init() {
